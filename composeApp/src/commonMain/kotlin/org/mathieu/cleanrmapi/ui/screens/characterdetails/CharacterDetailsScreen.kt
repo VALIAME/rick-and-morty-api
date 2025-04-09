@@ -59,7 +59,6 @@ import org.mathieu.cleanrmapi.ui.core.extensions.imageVector
 import org.mathieu.cleanrmapi.ui.core.extensions.text
 import org.mathieu.cleanrmapi.ui.core.theme.PrimaryColor
 import org.mathieu.cleanrmapi.ui.core.theme.SurfaceColor
-import org.mathieu.cleanrmapi.ui.screens.characters.CharactersContracts.SelectedCharacter
 
 @Composable
 fun CharacterDetailsScreen(
@@ -264,7 +263,9 @@ private object CharacterDetailsContent {
             isClickable = true,
             onClick = {
                 onAction(CharacterDetailsAction.SelectedLocation(location))
-            }
+            },
+            soundIsActive = true,
+            sound = "rpg_the_last_sylph", // Resource name without extension
         )
 
         Spacer(Modifier.width(16.dp))

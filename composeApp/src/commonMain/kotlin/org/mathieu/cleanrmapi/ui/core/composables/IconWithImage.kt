@@ -19,9 +19,12 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.mathieu.cleanrmapi.ui.core.sound.SoundPlayer
 import org.mathieu.cleanrmapi.ui.core.theme.OnBackgroundColor
 import org.mathieu.cleanrmapi.ui.core.theme.SurfaceColor
-
+import org.mathieu.cleanrmapi.ui.core.sound.SoundPlayerFactory
+import org.mathieu.cleanrmapi.ui.core.theme.OnBackgroundColor
+import org.mathieu.cleanrmapi.ui.core.theme.SurfaceColor
 
 @Composable
 fun IconWithImage(
@@ -34,12 +37,19 @@ fun IconWithImage(
     isClickable: Boolean = false,
     onClick: () -> Unit = {},
     soundIsActive: Boolean = false,
-    sound: String = ""
+    sound: String = "RPG - The Last Sylph", // Resource name without extension
 ) {
+    val soundPlayer = SoundPlayerFactory()
 
     // Create a modifier that includes clickable if isClickable is true
     val actualModifier = if (isClickable) {
-        modifier.clickable(onClick = onClick)
+        modifier.clickable {
+            onClick()
+            // Play sound if both conditions are met
+            if (soundIsActive && sound.isNotEmpty()) {
+                soundPlayer.playSound(sound)
+            }
+        }
     } else {
         modifier
     }

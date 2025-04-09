@@ -71,7 +71,6 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
-
             koin(platform = Platform.Desktop)
             ktor(platform = Platform.Desktop)
 

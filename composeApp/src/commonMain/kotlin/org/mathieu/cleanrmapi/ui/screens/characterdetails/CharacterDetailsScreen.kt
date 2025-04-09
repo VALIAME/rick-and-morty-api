@@ -49,6 +49,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.mathieu.cleanrmapi.domain.character.models.CharacterGender
 import org.mathieu.cleanrmapi.domain.character.models.CharacterStatus
 import org.mathieu.cleanrmapi.domain.episode.models.Episode
+import org.mathieu.cleanrmapi.domain.location.models.LocationPreview
 import org.mathieu.cleanrmapi.ui.core.composables.Avatar
 import org.mathieu.cleanrmapi.ui.core.composables.BackArrow
 import org.mathieu.cleanrmapi.ui.core.composables.IconWithImage
@@ -58,6 +59,7 @@ import org.mathieu.cleanrmapi.ui.core.extensions.imageVector
 import org.mathieu.cleanrmapi.ui.core.extensions.text
 import org.mathieu.cleanrmapi.ui.core.theme.PrimaryColor
 import org.mathieu.cleanrmapi.ui.core.theme.SurfaceColor
+import org.mathieu.cleanrmapi.ui.screens.characters.CharactersContracts.SelectedCharacter
 
 @Composable
 fun CharacterDetailsScreen(
@@ -109,6 +111,7 @@ private fun Content(
                 state = it,
                 onAction = onAction
             )
+
             CharacterDetailsState.Loading -> {
                 /** TODO: Could display a Loading Animation */
             }
@@ -150,16 +153,19 @@ private object CharacterDetailsContent {
 
             Header(
                 state = state,
-                offsetY = offsetY
+                offsetY = offsetY,
+                onAction = onAction
             )
 
             LazyColumn {
                 itemsIndexed(state.episodes) { index, episode ->
                     if (index == 0) {
-                        Box(modifier = Modifier.onGloballyPositioned { offsetY = it.positionInParent().y })
+                        Box(modifier = Modifier.onGloballyPositioned {
+                            offsetY = it.positionInParent().y
+                        })
                     }
-                    
-                    
+
+
                     EpisodeCard(
                         modifier = Modifier
                             .padding(8.dp)
@@ -183,7 +189,8 @@ private object CharacterDetailsContent {
     @Composable
     private fun Header(
         state: CharacterDetailsState.Loaded,
-        offsetY: Float
+        offsetY: Float,
+        onAction: (CharacterDetailsAction) -> Unit
     ) {
 
         val density = LocalDensity.current
@@ -219,7 +226,8 @@ private object CharacterDetailsContent {
                 AdditionalInfo(
                     gender = state.gender,
                     status = state.status,
-                    location = state.location.name
+                    location = state.location,
+                    onAction = onAction
                 )
 
             }
@@ -231,7 +239,8 @@ private object CharacterDetailsContent {
     private fun AdditionalInfo(
         gender: CharacterGender,
         status: CharacterStatus,
-        location: String
+        location: LocationPreview,
+        onAction: (CharacterDetailsAction) -> Unit
     ) = Row(
         modifier = Modifier
             .padding(8.dp)
@@ -251,7 +260,11 @@ private object CharacterDetailsContent {
 
         IconWithImage(
             modifier = Modifier.weight(1f),
-            imageVector = Icons.Rounded.Home, text = location
+            imageVector = Icons.Rounded.Home, text = location.name,
+            isClickable = true,
+            onClick = {
+                onAction(CharacterDetailsAction.SelectedLocation(location))
+            }
         )
 
         Spacer(Modifier.width(16.dp))

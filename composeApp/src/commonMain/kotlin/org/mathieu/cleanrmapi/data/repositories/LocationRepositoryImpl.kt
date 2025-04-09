@@ -19,7 +19,13 @@ internal class LocationRepositoryImpl(
     private val characterRepository: CharacterRepository
 ) : LocationRepository {
 
-    override fun getLocations(): Flow<List<LocationPreview>> {
+    override fun getLocations(): Flow<List<Location>> {
+        return locationDAO.getLocations().map { locations ->
+            locations.map { it.toDetailedModel() }
+        }
+    }
+
+    override fun getLocationPreviews(): Flow<List<LocationPreview>> {
         return locationDAO.getLocations().map { locations ->
             locations.map { it.toPreviewModel() }
         }
@@ -56,8 +62,7 @@ internal class LocationRepositoryImpl(
         }
     }
 
-    override suspend fun getLocationPreview(id: Int, name: String): LocationPreview {
-        val cachedLocation = locationDAO.getLocation(id)
-        return cachedLocation?.toPreviewModel() ?: LocationPreview(id, name)
+    override suspend fun getLocationPreview(id: Int): LocationPreview? {
+        return locationDAO.getLocation(id)?.toPreviewModel()
     }
 }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,13 +31,24 @@ fun IconWithImage(
     text: String,
     backgroundColor: Color = SurfaceColor,
     color: Color = OnBackgroundColor,
+    isClickable: Boolean = false,
+    onClick: () -> Unit = {},
+    soundIsActive: Boolean = false,
+    sound: String = ""
 ) {
+
+    // Create a modifier that includes clickable if isClickable is true
+    val actualModifier = if (isClickable) {
+        modifier.clickable(onClick = onClick)
+    } else {
+        modifier
+    }
 
     when (orientation) {
 
         Orientation.Vertical ->
             Column(
-                modifier = modifier
+                modifier = actualModifier
                     .background(backgroundColor, RoundedCornerShape(8.dp))
                     .padding(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -45,7 +57,7 @@ fun IconWithImage(
 
         Orientation.Horizontal ->
             Row(
-                modifier = modifier,
+                modifier = actualModifier,
                 verticalAlignment = Alignment.CenterVertically,
                 content = { Content(color, imageVector, text) }
             )

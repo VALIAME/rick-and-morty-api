@@ -1,33 +1,47 @@
 package org.mathieu.cleanrmapi.domain.character.models
 
 import org.mathieu.cleanrmapi.domain.episode.models.Episode
+import org.mathieu.cleanrmapi.domain.location.models.LocationPreview
 
 /**
- * Represents a detailed description of a Rick&Morty character.
+ * Represents detailed information about a character.
  *
- * @property id The unique identifier for the character.
- * @property name The name of the character.
- * @property episodes The episodes wheres this character plays.
- * @property status The current status of the character (Alive, Dead, or Unknown).
- * @property species The species or classification of the character.
- * @property type Further description or subspecies of the character.
- * @property gender The gender of the character.
- * @property origin The origin location of the character, represented as a name.
- * @property location The current or last known location of the character, represented as a name.
- * @property avatarUrl A URL pointing to an avatar or image of the character.
+ * @property id Unique identifier for the character.
+ * @property name Name of the character.
+ * @property status Current status of the character.
+ * @property species Biological species of the character.
+ * @property type The type or subspecies of the character.
+ * @property gender Gender identity of the character.
+ * @property origin The origin location of the character.
+ * @property location The last known location of the character.
+ * @property avatarUrl URL pointing to the character's image.
+ * @property episodes List of episodes in which the character appears.
  */
 data class CharacterDetails(
     val id: Int,
     val name: String,
-    val episodes: List<Episode>,
     val status: CharacterStatus,
     val species: String,
     val type: String,
     val gender: CharacterGender,
-    val origin: String,
-    val location: String,
-    val avatarUrl: String
-)
+    val origin: LocationPreview,
+    val location: LocationPreview,
+    val avatarUrl: String,
+    val episodes: List<Episode>
+){
+    /**
+     * Converts a detailed character to its simplified representation.
+     *
+     * @return A simplified [Character] model.
+     */
+    fun toCharacter(): Character = Character(
+        id = id,
+        name = name,
+        species = species,
+        type = type,
+        avatarUrl = avatarUrl
+    )
+}
 
 /**
  * Describes the current state or condition of a character.

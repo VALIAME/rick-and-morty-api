@@ -12,7 +12,6 @@ import org.mathieu.cleanrmapi.domain.location.LocationRepository
 import org.mathieu.cleanrmapi.domain.location.models.Location
 import org.mathieu.cleanrmapi.domain.location.models.LocationPreview
 
-
 internal class LocationRepositoryImpl(
     private val locationApi: LocationAPI,
     private val locationDAO: LocationDAO,

@@ -53,6 +53,7 @@ import org.mathieu.cleanrmapi.domain.location.models.LocationPreview
 import org.mathieu.cleanrmapi.ui.core.composables.Avatar
 import org.mathieu.cleanrmapi.ui.core.composables.BackArrow
 import org.mathieu.cleanrmapi.ui.core.composables.IconWithImage
+import org.mathieu.cleanrmapi.ui.core.composables.LocationCard
 import org.mathieu.cleanrmapi.ui.core.composables.PreviewContent
 import org.mathieu.cleanrmapi.ui.core.composables.Screen
 import org.mathieu.cleanrmapi.ui.core.extensions.imageVector
@@ -234,6 +235,17 @@ private object CharacterDetailsContent {
     }
 
 
+    /**
+     * Composable function for displaying additional information about a character.
+     *
+     * This function renders the character's gender, status, and location as icons with text.
+     * The location is clickable and triggers an action when selected.
+     *
+     * @param gender The gender of the character, represented as a `CharacterGender` object.
+     * @param status The status of the character, represented as a `CharacterStatus` object.
+     * @param location The location associated with the character, represented as a `LocationPreview` object.
+     * @param onAction Callback function to handle user actions, such as selecting the location.
+     */
     @Composable
     private fun AdditionalInfo(
         gender: CharacterGender,
@@ -257,7 +269,7 @@ private object CharacterDetailsContent {
 
         Spacer(Modifier.width(16.dp))
 
-        IconWithImage(
+        LocationCard(
             modifier = Modifier.weight(1f),
             imageVector = Icons.Rounded.Home, text = location.name,
             isClickable = true,

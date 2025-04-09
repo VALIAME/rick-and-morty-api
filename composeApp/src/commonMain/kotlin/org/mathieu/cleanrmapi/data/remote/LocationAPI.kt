@@ -11,7 +11,6 @@ import org.mathieu.cleanrmapi.data.validators.IdListValidator
 import org.mathieu.cleanrmapi.data.validators.annotations.MustBeCommaSeparatedIds
 
 internal class LocationAPI(private val client: HttpClient) {
-
     /**
      * Fetches a list of locations from the API.
      *

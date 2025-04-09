@@ -113,7 +113,16 @@ private fun ErrorView(error: String) {
     )
 }
 
+/**
+ * Internal object for rendering the main content of the Location Details screen.
+ */
 private object LocationContentImpl {
+    /**
+     * Composable function for rendering the main content of the Location Details screen.
+     *
+     * @param state The loaded state containing location details.
+     * @param onAction Callback for handling user actions.
+     */
     @Composable
     operator fun invoke(
         state: LocationDetailsState.Loaded,
@@ -153,6 +162,12 @@ private object LocationContentImpl {
         }
     }
 
+    /**
+     * Composable function for rendering the header of the Location Details screen.
+     *
+     * @param state The loaded state containing location details.
+     * @param offsetY The vertical offset for animations.
+     */
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     private fun Header(

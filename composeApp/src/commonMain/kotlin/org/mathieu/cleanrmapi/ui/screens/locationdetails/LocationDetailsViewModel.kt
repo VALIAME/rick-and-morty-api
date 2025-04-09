@@ -7,6 +7,11 @@ import org.mathieu.cleanrmapi.ui.core.Destination
 import org.mathieu.cleanrmapi.ui.core.ViewModel
 
 sealed interface LocationDetailsAction {
+    /**
+     * Action triggered when a character is selected.
+     *
+     * @property character The selected character.
+     */
     data class SelectedCharacter(val character: Character): LocationDetailsAction
 }
 

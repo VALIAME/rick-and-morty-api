@@ -14,6 +14,11 @@ import org.mathieu.cleanrmapi.ui.screens.characters.CharactersContracts.UiAction
 
 sealed interface CharacterDetailsAction {
     data class SelectedEpisode(val episode: Episode): CharacterDetailsAction
+    /**
+     * Represents an action triggered when a location is selected.
+     *
+     * @property location The preview of the selected location.
+     */
     data class SelectedLocation(val location: LocationPreview): CharacterDetailsAction
 }
 
@@ -54,6 +59,17 @@ class CharacterDetailsViewModel :
 
     }
 
+    /**
+     * Handles user actions related to character details.
+     *
+     * This function processes the provided action and performs the corresponding navigation
+     * or updates based on the type of action. Supported actions include selecting an episode
+     * or a location.
+     *
+     * @param action The action to handle, which can be one of the following:
+     * - `CharacterDetailsAction.SelectedEpisode`: Triggers navigation to the episode details screen.
+     * - `CharacterDetailsAction.SelectedLocation`: Triggers navigation to the location details screen.
+     */
     fun handleAction(action: CharacterDetailsAction) {
         when(action) {
             is CharacterDetailsAction.SelectedEpisode ->
@@ -62,6 +78,14 @@ class CharacterDetailsViewModel :
         }
     }
 
+    /**
+     * Navigates to the location details screen if the location has a valid ID.
+     *
+     * This function checks if the provided `LocationPreview` object contains a non-null ID.
+     * If the ID is present, it triggers navigation to the location details screen using the ID.
+     *
+     * @param location The `LocationPreview` object representing the location to navigate to.
+     */
     private fun selectedLocation(location: LocationPreview) {
         location.id?.let {
             sendEvent(Destination.LocationDetails(it.toString()))

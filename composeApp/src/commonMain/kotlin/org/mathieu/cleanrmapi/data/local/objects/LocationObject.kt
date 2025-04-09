@@ -29,6 +29,11 @@ class LocationObject(
     val created: String
 )
 
+/**
+ * Extension function to convert a [LocationResponse] to a [LocationObject].
+ *
+ * @return A [LocationObject] representation of the [LocationResponse].
+ */
 internal fun LocationResponse.toDBObject() = LocationObject(
     id = id,
     name = name,
@@ -38,11 +43,22 @@ internal fun LocationResponse.toDBObject() = LocationObject(
     created = created
 )
 
+/**
+ * Extension function to convert a [LocationObject] to a [LocationPreview].
+ *
+ * @return A [LocationPreview] representation of the [LocationObject].
+ */
 internal fun LocationObject.toPreviewModel() = LocationPreview(
     id = id,
     name = name
 )
 
+/**
+ * Extension function to convert a [LocationObject] to a [Location].
+ *
+ * @param idsToCharactersConverter A suspend function that converts character IDs to a list of characters.
+ * @return A [Location] representation of the [LocationObject].
+ */
 internal suspend fun LocationObject.toDetailedModel(
     idsToCharactersConverter: suspend (characterIds: String) -> List<org.mathieu.cleanrmapi.domain.character.models.Character> = { emptyList() }
 ) = Location(

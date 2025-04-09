@@ -19,13 +19,27 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.mathieu.cleanrmapi.ui.core.sound.SoundPlayer
-import org.mathieu.cleanrmapi.ui.core.theme.OnBackgroundColor
-import org.mathieu.cleanrmapi.ui.core.theme.SurfaceColor
 import org.mathieu.cleanrmapi.ui.core.sound.SoundPlayerFactory
 import org.mathieu.cleanrmapi.ui.core.theme.OnBackgroundColor
 import org.mathieu.cleanrmapi.ui.core.theme.SurfaceColor
 
+/**
+ * Composable function for displaying an icon with text.
+ *
+ * This function renders an icon and a text label, either in a vertical or horizontal orientation.
+ * It supports customization of colors, background, click behavior, and optional sound effects.
+ *
+ * @param modifier The modifier to be applied to the composable.
+ * @param orientation The orientation of the layout, either vertical or horizontal.
+ * @param imageVector The vector image to display as the icon.
+ * @param text The text label to display alongside the icon.
+ * @param backgroundColor The background color of the composable.
+ * @param color The color of the icon and text.
+ * @param isClickable Whether the composable is clickable.
+ * @param onClick The callback to invoke when the composable is clicked.
+ * @param soundIsActive Whether we want a sound effect on click.
+ * @param sound The name of the sound resource to play on click (without extension).
+ */
 @Composable
 fun IconWithImage(
     modifier: Modifier = Modifier,
@@ -37,7 +51,7 @@ fun IconWithImage(
     isClickable: Boolean = false,
     onClick: () -> Unit = {},
     soundIsActive: Boolean = false,
-    sound: String = "RPG - The Last Sylph", // Resource name without extension
+    sound: String = "menu_selection_click", // Resource name without extension
 ) {
     val soundPlayer = SoundPlayerFactory()
 
